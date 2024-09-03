@@ -1,5 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Product } from './product.entity';
 
 export enum UserRole {
@@ -30,12 +37,12 @@ export class User {
   @OneToMany(() => Product, (product) => product.user)
   products: Product[];
 
-  @Column()
-  createdAt: Date;
-
-  @Column()
+  @Column({ type: 'timestamp', nullable: true })
   lastLogin: Date;
 
-  @Column()
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 }
