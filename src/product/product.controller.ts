@@ -18,7 +18,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { ApiTags, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
-@ApiTags('products')
+@ApiTags('Products')
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -36,7 +36,7 @@ export class ProductController {
     description: 'Json structure for product object',
   })
   async create(@Body() createProductDto: CreateProductDto, @Request() req) {
-    return this.productService.createProduct(createProductDto, req.user.id);
+    return this.productService.createProduct(createProductDto, req.user);
   }
 
   @Get('approved')
@@ -100,7 +100,7 @@ export class ProductController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles('Admin')
   @Patch('approve/:id')
   @ApiBearerAuth()
   @ApiResponse({
@@ -113,5 +113,12 @@ export class ProductController {
   })
   async approveProduct(@Param('id') id: string) {
     return this.productService.approveProduct(id);
+  }
+
+  @Patch('disapprove/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Admin')
+  async disapproveProduct(@Param('id') id: string) {
+    return this.productService.disapproveProduct(id);
   }
 }
