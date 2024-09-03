@@ -9,9 +9,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './users.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
 import { CreateUserDto } from '../dto/user/create-user.dto';
 import { ApiBearerAuth, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 

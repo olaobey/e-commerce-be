@@ -8,11 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Product } from './product.entity';
-
-export enum UserRole {
-  Admin = 'Admin',
-  User = 'User',
-}
+import { UserRole } from '../common/enums/user-role.enum';
 
 @Entity('users')
 export class User {
@@ -28,7 +24,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ default: 'user' })
+  @Column({ default: 'User' })
   role: UserRole;
 
   @Column({ default: false })
