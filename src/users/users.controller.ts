@@ -13,7 +13,13 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { CreateUserDto } from '../dto/user/create-user.dto';
-import { ApiBearerAuth, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiResponse,
+  ApiTags,
+  ApiBody,
+  ApiOperation,
+} from '@nestjs/swagger';
 
 @ApiTags('Users')
 @Controller('users')
@@ -21,8 +27,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @ApiOperation({ summary: 'A routes to get all the users by admin' })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles('Admin')
   @ApiBearerAuth()
   @ApiResponse({
     status: 200,
@@ -41,14 +48,16 @@ export class UserController {
     return this.userService.create(creatUserDto);
   }
 
-  @Get(':id')
+  @Get('view/:id')
+  @ApiOperation({ summary: 'A routes to get a user' })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles('Admin')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Patch('ban/:id')
+  @ApiOperation({ summary: 'A routes to Ban a user' })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @ApiBearerAuth()
@@ -57,6 +66,7 @@ export class UserController {
   }
 
   @Patch('unban/:id')
+  @ApiOperation({ summary: 'A routes to unban a user' })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @ApiBearerAuth()

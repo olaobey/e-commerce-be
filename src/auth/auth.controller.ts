@@ -3,7 +3,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../dto/user/create-user.dto';
 import { LoginDto } from '../dto/user/login.dto';
-import { ApiTags, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiBody, ApiOperation } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -11,6 +11,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
+  @ApiOperation({ summary: 'A routes to register a user' })
   @ApiResponse({
     status: 201,
     description: 'The record has been successfully created.',
@@ -25,6 +26,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'A routes to login a User' })
   @ApiResponse({
     status: 200,
     description: 'Login successfully.',

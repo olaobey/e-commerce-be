@@ -34,6 +34,10 @@ export class ProductService {
     return this.productRepository.find({ where: { isApproved: true } });
   }
 
+  async getProducts(): Promise<Product[]> {
+    return this.productRepository.find();
+  }
+
   async findById(id: string): Promise<Product> {
     const product = await this.productRepository.findOne({
       where: { id },
