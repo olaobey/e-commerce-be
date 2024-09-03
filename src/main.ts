@@ -15,11 +15,6 @@ async function bootstrap() {
     .setTitle('E-commerce API')
     .setDescription('API documentation for the E-commerce system')
     .setVersion('1.0')
-    .addServer('http://localhost:3000/', 'Local environment')
-    .addGlobalParameters({
-      name: 'country',
-      in: 'query',
-    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
